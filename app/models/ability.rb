@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Ability
   include CanCan::Ability
 
@@ -15,7 +13,5 @@ class Ability
       can :create, Entity, author_id: user.id # everyone can create transfer
       can :destroy, Entity, author_id: user.id
     end
-
-   
   end
 end
