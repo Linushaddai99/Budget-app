@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_21_141439) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_21_145848) do
   create_table "entities", force: :cascade do |t|
     t.string "name"
     t.integer "amount", default: 0
@@ -51,6 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_21_141439) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
+    t.string "role"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
