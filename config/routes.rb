@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 
   root "groups#index"
 
-  resources :groups, only: [:index, :show, :create, :destroy] do
-    resources :entities, only: [:index, :show, :create, :destroy]
+  resources :groups, only: [:index, :new, :show, :create, :destroy] do
+    resources :entities, only: [:index, :new, :show, :create, :destroy]
   end
 
   resources :users

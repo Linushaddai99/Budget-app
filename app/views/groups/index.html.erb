@@ -4,10 +4,8 @@
 
 <div id="groups">
   <% @groups.each do |group| %>
-    <%= render group %>
-    <p>
-      <%= link_to "Show this group", group %>
-    </p>
+    <%= render partial: 'group', locals: {data: group} %>
+    <p><%= group.id %></p>
   <% end %>
 </div>
 
