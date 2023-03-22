@@ -16,15 +16,15 @@ class GroupsController < ApplicationController
   def new
     @icons = [
       {
-        'name' => 'Food',
+        'name' => 'Food icon',
         'source' => 'assets/images/food.png'
       },
       {
-        'name' => 'Gadgets',
+        'name' => 'Gadgets icon',
         'source' => '/assets/images/gadget.png'
       },
       {
-        'name' => 'Clothing',
+        'name' => 'Clothing icon',
         'source' => '/assets/images/clothing.png'
       },
       {
@@ -59,9 +59,10 @@ class GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group.save
 
-    if @group.save
-      redirect_to '/'
-    end
+    return unless @group.save
+
+    redirect_to '/'
+
 
     # respond_to do |format|
     #   if @group.save
