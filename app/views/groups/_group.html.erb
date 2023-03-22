@@ -1,2 +1,7 @@
-<div id="<%= dom_id group %>">
+<div>
+  <img src=<%= data.icon %> />
+  <%= data.name %>
+ <p>
+   <%= link_to "Show this group", group_path(data.id)%>
+ </p>
 </div>

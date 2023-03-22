@@ -1,3 +1,5 @@
+<%  %>
+
 <%= form_with(model: group) do |form| %>
   <% if group.errors.any? %>
     <div style="color: red">
@@ -11,7 +13,21 @@
     </div>
   <% end %>
 
+  <% if @icons %>
   <div>
+    <div class="field flex">
+      <%= form.label :name %><br />
+      <%= form.text_field :name, autofocus: true, autocomplete: "name" %>
+    </div>
+    <div>
+      <p>Add Icon</p>
+      <div>
+        <%= form.select :icon, @icons.map { |icon| [icon['name'], icon['source']] } %>
+      </div>
+    </div>
     <%= form.submit %>
   </div>
 <% end %>
+<% end %>
+
+

@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: %i[show edit update destroy]
+  # before_action :set_group, only: %i[show new create destroy]
+  before_action :authenticate_user!
 
   # GET /groups or /groups.json
   def index
@@ -7,10 +8,46 @@ class GroupsController < ApplicationController
   end
 
   # GET /groups/1 or /groups/1.json
-  def show; end
+  def show
+    @group = Group.find(params[:id])
+  end
 
   # GET /groups/new
   def new
+    @icons = [
+      {
+        'name' => 'Food icon',
+        'source' => 'assets/images/food.png'
+      },
+      {
+        'name' => 'Gadgets icon',
+        'source' => '/assets/images/gadget.png'
+      },
+      {
+        'name' => 'Clothing icon',
+        'source' => '/assets/images/clothing.png'
+      },
+      {
+        'name' => 'Accessories',
+        'source' => '/assets/images/accessories.png'
+      },
+      {
+        'name' => 'Skincare',
+        'source' => '/assets/images/skincare.png'
+      },
+      {
+        'name' => 'Finances',
+        'source' => '/assets/images/finances.png'
+      },
+      {
+        'name' => 'Education',
+        'source' => '/assets/images/education.png'
+      },
+      {
+        'name' => 'Other',
+        'source' => '/assets/images/other.png'
+      }
+    ]
     @group = Group.new
   end
 
@@ -20,16 +57,22 @@ class GroupsController < ApplicationController
   # POST /groups or /groups.json
   def create
     @group = Group.new(group_params)
+    @group.save
 
-    respond_to do |format|
-      if @group.save
-        format.html { redirect_to group_url(@group), notice: 'Group was successfully created.' }
-        format.json { render :show, status: :created, location: @group }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
-      end
-    end
+    return unless @group.save
+
+    redirect_to '/'
+
+
+    # respond_to do |format|
+    #   if @group.save
+    #     format.html { redirect_to group_url(@group), notice: 'Group was successfully created.' }
+    #     format.json { render :show, status: :created, location: @group }
+    #   else
+    #     format.html { render :new, status: :unprocessable_entity }
+    #     format.json { render json: @group.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /groups/1 or /groups/1.json
@@ -59,11 +102,12 @@ class GroupsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_group
-    @group = Group.find(params[:id])
+    @group = Group.find(params[:user_id])
   end
 
   # Only allow a list of trusted parameters through.
   def group_params
-    params.fetch(:group, {})
+    # params.fetch(:group, {})
+    params.require(:group).permit(:name, :icon).merge(user: current_user)
   end
 end
