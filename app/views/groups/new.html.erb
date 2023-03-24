@@ -1,13 +1,16 @@
 <div class="header">
-  <h1>New group</h1>
   <div>
-    <%= link_to "< Back to groups", groups_path %>
+    <h1>New group</h1>
+    <div>
+      <%= link_to "< Back to groups", groups_path %>
+    </div>
   </div>
+  <%= button_to "Logout", destroy_user_session_path, method: :delete, data: { turbo: false }, :class => 'nav-link btn', id: 'white-btn' %>
 </div>
 
 <br>
 
-<div class="groups-container">
+<div class="container">
 <%= render "form", group: @group %>
 </div>
 

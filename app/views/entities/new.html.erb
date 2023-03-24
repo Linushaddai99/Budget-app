@@ -1,9 +1,12 @@
 <div class='header'>
-    <h1>New entity</h1>
-    <%= link_to "< Back", "javascript:history.back()" %>
+    <div>
+        <h1>New entity</h1>
+        <%= link_to "< Back", "javascript:history.back()" %>
+    </div>
+    <%= button_to "Logout", destroy_user_session_path, method: :delete, data: { turbo: false }, :class => 'nav-link btn', id: 'white-btn' %>
 </div>
 
-<div class="groups-container">
+<div class="container">
     <%= render partial: "form", locals: { entity: @entity, groups: @groups } %>
 </div>
 
