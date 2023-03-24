@@ -1,9 +1,13 @@
-<h1>New entity</h1>
-
-<%= render "form", entity: @entity %>
-
-<br>
-
-<div>
-  <%= link_to "Back to entities", entities_path %>
+<div class='header'>
+    <div>
+        <h1>New entity</h1>
+        <%= link_to "< Back", "javascript:history.back()" %>
+    </div>
+    <%= button_to "Logout", destroy_user_session_path, method: :delete, data: { turbo: false }, :class => 'nav-link btn', id: 'white-btn' %>
 </div>
+
+<div class="container">
+    <%= render partial: "form", locals: { entity: @entity, groups: @groups } %>
+</div>
+
+

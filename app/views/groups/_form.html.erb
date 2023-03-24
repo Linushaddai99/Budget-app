@@ -17,15 +17,15 @@
   <div>
     <div class="field flex">
       <%= form.label :name %><br />
-      <%= form.text_field :name, autofocus: true, autocomplete: "name" %>
+      <%= form.text_field :name, autofocus: true, autocomplete: "name", class: 'text-field' %>
     </div>
     <div>
       <p>Add Icon</p>
-      <div>
-        <%= form.select :icon, @icons.map { |icon| [icon['name'], icon['source']] } %>
+      <div class: 'text-field'>
+        <%= form.select :icon, @icons.map { |icon| [icon['name'], icon['source']] }, class: 'text-field' %>
       </div>
     </div>
-    <%= form.submit %>
+    <%= form.submit class: 'btn' %>
   </div>
 <% end %>
 <% end %>

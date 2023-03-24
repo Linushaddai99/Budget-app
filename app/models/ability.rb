@@ -7,10 +7,10 @@ class Ability
 
     return unless user.present?
 
-    can(:manage, Group, user:)
-    can(:manage, Entity, user:)
+    can :manage, Group, user_id: user.id
+    can :manage, Entity, user_id: user.id
 
-    return unless user.is? :admin
+    return unless user.admin?
 
     can :manage, :all
   end
