@@ -1,14 +1,21 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Entities</h1>
-
-<div id="entities">
-  <% @entities.each do |entity| %>
-    <%= render entity %>
-    <p>
-      <%= link_to "Show this entity", entity %>
-    </p>
-  <% end %>
+<div class="header">
+  <p style="color: green"><%= notice %></p>
+  <h1><%= @group.name %></h1>
+  <div>
+    <%= link_to "< Back to groups", groups_path %>
+  </div>
 </div>
 
-<%= link_to "New entity", new_entity_path %>
+<div class="groups-container">
+  <% @entities.each do |entity| %>
+    <div class="entity">
+      <p><%= entity.name %></p>
+      <p>$<%= entity.amount %></p>
+    </div>
+  <% end %>
+  <h3>Total: $<%= @entities.inject(0) { |sum, e| sum += e.amount } %></h3>
+  <p>
+    <%= link_to "Add Entity", new_group_entity_path, class: 'btn' %>
+  </p>
+</div>
+

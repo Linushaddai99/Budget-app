@@ -1,9 +1,10 @@
 class EntitiesController < ApplicationController
-  before_action :set_entity, only: %i[show edit update destroy]
+  # before_action :set_entity, only: %i[show edit create new update destroy]
 
   # GET /entities or /entities.json
   def index
-    @entities = Entity.all
+    @group = Group.find(params[:group_id])
+    @entities = Entity.joins(:groups).where(groups: {id: params[:group_id]}).order(created_at: :desc)
   end
 
   # GET /entities/1 or /entities/1.json
@@ -11,6 +12,7 @@ class EntitiesController < ApplicationController
 
   # GET /entities/new
   def new
+    @groups = Group.where(user_id: current_user.id)
     @entity = Entity.new
   end
 
@@ -19,18 +21,42 @@ class EntitiesController < ApplicationController
 
   # POST /entities or /entities.json
   def create
-    @entity = Entity.new(entity_params)
+    params = entity_params
+    @entity = Entity.new(name: params[:name], amount: params[:amount])
+    @entity.author = current_user
+    @groups_id = params[:group_ids]
 
-    respond_to do |format|
-      if @entity.save
-        format.html { redirect_to entity_url(@entity), notice: 'Entity was successfully created.' }
-        format.json { render :show, status: :created, location: @entity }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @entity.errors, status: :unprocessable_entity }
-      end
+    @groups_id.each do |id|
+      group = Group.find(id) unless id == ''
+      @entity.groups.push(group) unless group.nil?
+    end
+
+    return :new unless @entity.groups.any?
+
+    if @entity.save
+      redirect_to group_entities_path(@entity.groups.first.id), notice: 'Enitity added successfully'
+    else
+      render :new
     end
   end
+  
+  # def create
+  #   @entity = Entity.new(entity_params)
+
+  #   if @entity.save!
+  #     redirect_to group_entities_path(params[:group_id])
+  #   end
+
+    # respond_to do |format|
+    #   if @entity.save
+    #     format.html { redirect_to entity_url(@entity), notice: 'Entity was successfully created.' }
+    #     format.json { render :show, status: :created, location: @entity }
+    #   else
+    #     format.html { render :new, status: :unprocessable_entity }
+    #     format.json { render json: @entity.errors, status: :unprocessable_entity }
+    #   end
+    # end
+  # end
 
   # PATCH/PUT /entities/1 or /entities/1.json
   def update
@@ -63,7 +89,11 @@ class EntitiesController < ApplicationController
   end
 
   # Only allow a list of trusted parameters through.
+  # def entity_params
+  #   params.require(:entity).permit(:name, :amount).merge(author: current_user)
+  # end
+
   def entity_params
-    params.fetch(:entity, {})
+    params.require(:entity).permit(:name, :amount, group_ids: [])
   end
 end

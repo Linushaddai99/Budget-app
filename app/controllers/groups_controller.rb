@@ -1,18 +1,14 @@
 class GroupsController < ApplicationController
-  # before_action :set_group, only: %i[show new create destroy]
   before_action :authenticate_user!
 
-  # GET /groups or /groups.json
   def index
     @groups = Group.all
   end
 
-  # GET /groups/1 or /groups/1.json
   def show
     @group = Group.find(params[:id])
   end
 
-  # GET /groups/new
   def new
     @icons = [
       {
@@ -51,31 +47,19 @@ class GroupsController < ApplicationController
     @group = Group.new
   end
 
-  # GET /groups/1/edit
   def edit; end
 
-  # POST /groups or /groups.json
   def create
     @group = Group.new(group_params)
     @group.save
 
-    return unless @group.save
-
-    redirect_to '/'
-
-
-    # respond_to do |format|
-    #   if @group.save
-    #     format.html { redirect_to group_url(@group), notice: 'Group was successfully created.' }
-    #     format.json { render :show, status: :created, location: @group }
-    #   else
-    #     format.html { render :new, status: :unprocessable_entity }
-    #     format.json { render json: @group.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    if @group.save
+      redirect_to '/'
+    else
+      render :new, alert: 'Error, Group not created'
+    end
   end
 
-  # PATCH/PUT /groups/1 or /groups/1.json
   def update
     respond_to do |format|
       if @group.update(group_params)
@@ -88,7 +72,6 @@ class GroupsController < ApplicationController
     end
   end
 
-  # DELETE /groups/1 or /groups/1.json
   def destroy
     @group.destroy
 

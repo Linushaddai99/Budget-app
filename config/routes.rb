@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  root "groups#index"
+  root "home#index"
 
   resources :groups, only: [:index, :new, :show, :create, :destroy] do
     resources :entities, only: [:index, :new, :show, :create, :destroy]

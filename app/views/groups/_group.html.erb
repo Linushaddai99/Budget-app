@@ -1,7 +1,10 @@
-<div>
-  <img src=<%= data.icon %> />
-  <%= data.name %>
- <p>
-   <%= link_to "Show this group", group_path(data.id)%>
- </p>
-</div>
+<a href="/groups/<%= data.id %>/entities">
+  <div class="group-div">
+    <div class="icon-name">
+        <img src=<%= data.icon %> />
+        <span><%= data.name %></span>
+    </div>
+    <p>$<%= data.entities.inject(0) { |sum, e| sum += e.amount } %></p>
+  </div>
+</a>
+
