@@ -10,11 +10,11 @@ services:
     startCommand: "bundle exec rails s"
     envVars:
       - key: DATABASE_URL
+        sync: false
+      - key: RAILS_MASTER_KEY
         fromDatabase:
           name: postgres
           property: connectionString
-      - key: RAILS_MASTER_KEY
-        sync: false
     - type: redis
       name: redis
       ipAllowList: []
