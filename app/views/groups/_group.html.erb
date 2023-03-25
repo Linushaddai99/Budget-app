@@ -4,7 +4,7 @@
         <img src=<%= data.icon %> />
         <span><%= data.name %></span>
     </div>
-    <p>$<%= data.entities.inject(0) { |sum, e| sum += e.amount } %></p>
+    <h3>$<%= data.entities.inject(0) { |sum, e| sum += e.amount } %></h3>
   </div>
 </a>
 
