@@ -1,0 +1,10 @@
+<a href="/groups/<%= data.id %>/entities">
+  <div class="group-div">
+    <div class="icon-name">
+        <img src=<%= data.icon %> />
+        <span><%= data.name %></span>
+    </div>
+    <h3>$<%= data.entities.inject(0) { |sum, e| sum += e.amount } %></h3>
+  </div>
+</a>
+

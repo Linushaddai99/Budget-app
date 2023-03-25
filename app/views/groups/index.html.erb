@@ -1,0 +1,19 @@
+<div class="header">
+  <div>
+    <p style="color: green"><%= notice %></p>
+    <h2>Budget Groups</h2>
+  </div>
+  <%= button_to "Logout", destroy_user_session_path, method: :delete, data: { turbo: false }, :class => 'nav-link btn', id: 'white-btn' %>
+</div>
+
+<div class="application-body">
+  <div class="groups-container">
+    <% @groups.each do |group| %>
+      <% if can? :manage, group %>
+      <%= render partial: 'group', locals: {data: group} %>
+      <% end %>
+    <% end %>
+  </div>
+  <%= link_to "New group", new_group_path, class: 'btn' %>
+</div>
+

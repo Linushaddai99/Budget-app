@@ -1,0 +1,26 @@
+<div class="header">
+  <div>
+    <p style="color: green"><%= notice %></p>
+    <h1><%= @group.name %></h1>
+  <div>
+    <%= link_to "< Back to groups", groups_path %>
+  </div>
+  </div>
+  <%= button_to "Logout", destroy_user_session_path, method: :delete, data: { turbo: false }, :class => 'nav-link btn', id: 'white-btn' %>
+
+</div>
+
+<div class="container">
+<h3>Total: $<%= @entities.inject(0) { |sum, e| sum += e.amount } %></h3>
+
+  <% @entities.each do |entity| %>
+    <div class="entity">
+      <p><%= entity.name %></p>
+      <p>$<%= entity.amount %></p>
+    </div>
+  <% end %>
+  <p class="entity-btn">
+    <%= link_to "Add Entity", new_group_entity_path, class: 'btn' %>
+  </p>
+</div>
+

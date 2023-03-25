@@ -1,0 +1,33 @@
+<%  %>
+
+<%= form_with(model: group) do |form| %>
+  <% if group.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h2>
+
+      <ul>
+        <% group.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @icons %>
+  <div>
+    <div class="field flex">
+      <%= form.label :name %><br />
+      <%= form.text_field :name, autofocus: true, autocomplete: "name", class: 'text-field' %>
+    </div>
+    <div>
+      <p>Add Icon</p>
+      <div class: 'text-field'>
+        <%= form.select :icon, @icons.map { |icon| [icon['name'], icon['source']] }, class: 'text-field' %>
+      </div>
+    </div>
+    <%= form.submit class: 'btn' %>
+  </div>
+<% end %>
+<% end %>
+
+
