@@ -101,6 +101,10 @@ h2 {
   color: #595be0 !important;
 }
 
+.entity-btn {
+    margin-top: 30px;
+}
+
 .text-field {
   width: 100%;
   border: none;
