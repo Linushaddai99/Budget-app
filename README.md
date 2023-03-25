@@ -71,7 +71,7 @@
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-[View Live Demo]()
+[Live Demo](https://budget-application-wb4f.onrender.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -94,7 +94,7 @@ In order to run this project you need:
 Clone this repository to your desired folder:
 
 ```sh
- git clone https://github.com/linushaddai99/Budget-app.git
+ git clone https://github.com/Linushaddai99/Budget-app.git
 ```
 
 ### Install
